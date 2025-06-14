@@ -9,33 +9,31 @@ This project involves analyzing a Spotify dataset with various attributes about 
 
 ```sql
 -- create table
-DROP TABLE IF EXISTS spotify;
-CREATE TABLE spotify (
-    artist VARCHAR(255),
-    track VARCHAR(255),
-    album VARCHAR(255),
-    album_type VARCHAR(50),
-    danceability FLOAT,
-    energy FLOAT,
-    loudness FLOAT,
-    speechiness FLOAT,
-    acousticness FLOAT,
-    instrumentalness FLOAT,
-    liveness FLOAT,
-    valence FLOAT,
-    tempo FLOAT,
-    duration_min FLOAT,
-    title VARCHAR(255),
-    channel VARCHAR(255),
-    views FLOAT,
-    likes BIGINT,
-    comments BIGINT,
-    licensed BOOLEAN,
-    official_video BOOLEAN,
-    stream BIGINT,
-    energy_liveness FLOAT,
-    most_played_on VARCHAR(50)
-);
+CREATE TABLE spotify(
+	Artist VARCHAR(255),
+	Track VARCHAR(225),
+	Album VARCHAR(255),
+	Album_type VARCHAR(50),
+	Danceability FLOAT,
+	Energy FLOAT,
+	Loudness FLOAT,
+	Speechiness FLOAT,
+	Acousticness FLOAT,
+	Instrumentalness FLOAT,
+	Liveness FLOAT,
+	Valence FLOAT,
+	Tempo FLOAT,
+	Duration_min FLOAT,
+	Title VARCHAR(255),
+	Channel VARCHAR(255),
+	Views FLOAT,
+	Likes BIGINT,
+	Comments BIGINT,
+	Licensed BOOLEAN,
+	official_video BOOLEAN,
+	Stream BIGINT,
+	EnergyLiveness FLOAT,
+	most_playedon VARCHAR(50)
 ```
 ## Project Steps
 
@@ -70,11 +68,37 @@ In advanced stages, the focus shifts to improving query performance. Some optimi
 
 ### Easy Level
 1. Retrieve the names of all tracks that have more than 1 billion streams.
+```sql
+SELECT *
+FROM spotify
+WHERE stream > 1000000000;
+```
 2. List all albums along with their respective artists.
+```sql
+SELECT 
+	DISTINCT album, artist
+FROM spotify;
+```
 3. Get the total number of comments for tracks where `licensed = TRUE`.
+```sql
+SELECT 
+	SUM(comments) AS total_comments
+FROM spotify
+WHERE licensed = 'true';
+```
 4. Find all tracks that belong to the album type `single`.
+```sql
+SELECT * FROM spotify
+WHERE album_type = 'single';
+```
 5. Count the total number of tracks by each artist.
-
+```sql
+SELECT 
+	artist,
+	COUNT(*) as total_no_songs
+FROM spotify
+GROUP BY artist;
+```
 ### Medium Level
 1. Calculate the average danceability of tracks in each album.
 2. Find the top 5 tracks with the highest energy values.
